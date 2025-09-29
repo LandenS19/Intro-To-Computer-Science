@@ -17,28 +17,8 @@
           b c)))
 
 ;collage: image, image, image, image -> image
-(define (collage a b c d)
-  (above (beside a b) (beside c d)))
 
 
-;5)
-;shape: string -> image
-(define (shape-maker name color)
-  (cond
-    [(string=? name "circle") (circle 50 'solid color)]
-    [(string=? name "square") (square 25 'solid color)]
-    [(string=? name "rectangle") (rectangle 50 30 'solid color)]
-    [else (circle 50 'solid color)]))
-
-;mood-color: string -> string
-(define (mood-color mood)
-  (cond
-    [(string=? mood "sad") "blue"]
-    [(string=? mood "mellow") "yellow"]
-    [(string=? mood "happy") "orange"]
-    [(string=? mood "angry") "red"]
-    [else "pink"]))
-
-;mood-viz: string, string -> image 
-(define (mood-viz shape mood)
-  (shape-maker shape (mood-color mood)))
+;mood-viz function, string -> image
+;(define (mood-viz shape mood)
+;  ())
