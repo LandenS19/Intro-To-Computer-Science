@@ -1,0 +1,67 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-reader.ss" "lang")((modname pong) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp")) #f)))
+;World Struct
+(define-struct WS (ballX ballY Xdirection Ydirection playerY score))
+
+;World Bounds Variables
+(define W-WIDTH 800)
+(define W-HEIGHT 500)
+
+;Image Componets
+(define PLAYER-WIDTH (/ W-WIDTH 100))
+(define PLAYER-HEIGHT (/ W-HEIGHT 5))
+(define PLAYER (rectangle PLAYER-WIDTH PLAYER-HEIGHT 'solid "white"))
+(define PLAYER-X 10)
+(define BALL-SIZE 8)
+(define BALL (circle BALL-SIZE 'solid "white"))
+(define BACKGROUND (rectangle W-WIDTH W-HEIGHT 'solid "black"))
+(define TEXT-SIZE 75)
+
+;Game Componets
+(define BALL-SPEED 8)
+(define PLAYER-HITBOX-X (/ PLAYER-WIDTH 2))
+(define PLAYER-HITBOX-Y (/ PLAYER-HEIGHT 2))
+
+(define WS-INIT (make-WS 400 100 1 1 250 0))
+
+
+(define (render ws)
+  (place-images
+   (list
+    BALL
+    PLAYER
+    (text (number->string (WS-score ws)) TEXT-SIZE "white"))
+   (list
+    (make-posn (WS-ballX ws) (WS-ballY ws))
+    (make-posn PLAYER-X (WS-playerY ws))
+    (make-posn (/ W-WIDTH 2) (/ W-HEIGHT 2)))
+   BACKGROUND))
+
+(define (hit-player x y py)
+  (and (>= x (- (+ PLAYER-X PLAYER-HITBOX-X) (/ PLAYER-HITBOX-X 2))) (<= x (+ (+ PLAYER-X PLAYER-HITBOX-X) (/ PLAYER-HITBOX-X 2)))
+       (>= y (- (+ py PLAYER-HITBOX-Y) (/ PLAYER-HITBOX-Y 2))) (<= x (+ (+ py PLAYER-HITBOX-Y) (/ PLAYER-HITBOX-Y 2))))
+
+
+(define (tock ws)
+  (make-WS
+   [* (+ (WS-ballX ws) BALL-SPEED) (WS-Xdirection ws)]
+   [* (+ (WS-ballY ws) BALL-SPEED) (WS-Ydirection ws)]
+   [if (and (hit-player (WS-ballX ws) (WS-ballY ws)) (hit-right-wall x y))]
+   [WS-Ydirection ws]
+   [WS-playerY ws]
+   [WS-score ws]))
+
+
+
+
+
+
+(define (main ws)
+  (big-bang ws
+    [to-draw render]
+    ;[on-key ...]
+    [on-tick tock]
+  ;  [stop-when ...]
+    ))
+(main WS-INIT)
