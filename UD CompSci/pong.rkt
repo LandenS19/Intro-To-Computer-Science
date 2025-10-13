@@ -1,7 +1,7 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-intermediate-reader.ss" "lang")((modname pong) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "universe.rkt" "teachpack" "2htdp")) #f)))
-;World Struct
+;World Struct 
 (define-struct WS (ballX ballY Xdirection Ydirection playerY score))
 
 ;World Bounds Variables
@@ -15,17 +15,18 @@
 (define PLAYER-X 15)
 (define BALL-SIZE 8)
 (define BALL (circle BALL-SIZE 'solid "white"))
-(define BALL-OUTLINE (circle (+ 1 BALL-SIZE) 'solid "light blue"))
+(define BALL-OUTLINE (circle (+ 2 BALL-SIZE) 'solid "orange"))
+(define BALL-INIT (make-posn (+ (random (- W-WIDTH 400)) 200) (random W-HEIGHT)))
 (define BACKGROUND (rectangle W-WIDTH W-HEIGHT 'solid "black"))
 (define TEXT-SIZE 75)
 
-;Game Componets  
+;Game Componets   
 (define BALL-SPEED-X (+ 5 (random 8)))
 (define BALL-SPEED-Y (+ 3 (random 8)))
 (define PLAYER-HITBOX-X (/ PLAYER-WIDTH 2))
 (define PLAYER-HITBOX-Y (/ PLAYER-HEIGHT 2))
 
-(define WS-INIT (make-WS 600 50 1 1 250 0))
+(define WS-INIT (make-WS (posn-x BALL-INIT) (posn-y BALL-INIT) 1 1 250 0))
 
 
 (define (render ws)
