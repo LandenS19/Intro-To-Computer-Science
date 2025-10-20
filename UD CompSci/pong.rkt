@@ -13,7 +13,7 @@
 (define PLAYER-HEIGHT (/ W-HEIGHT 5))
 (define PLAYER (rectangle PLAYER-WIDTH PLAYER-HEIGHT 'solid "white"))
 (define PLAYER-X 15)
-(define BALL-SIZE 8)
+(define BALL-SIZE 20)
 (define BALL (circle BALL-SIZE 'solid "white"))
 (define BALL-OUTLINE (circle (+ 2 BALL-SIZE) 'solid "orange"))
 (define BALL-INIT (make-posn (+ (random (- W-WIDTH 400)) 200) (random W-HEIGHT)))
