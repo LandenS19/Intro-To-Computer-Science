@@ -1,4 +1,3 @@
 # Intro-To-Computer-Science
-A few short programs I made during the Intro to Computer Science Course.
-Main use is for easy access to all my project files and for easy sharing. This repository contains almost all the files I made for the class. 
+These programs were developed using the information provided in the Introduction to Computer Science course at the University of Dallas. 
 Some of the files contain images that are only visible if the file is downloaded and opened using Dr. Racket. 
